@@ -1,3 +1,4 @@
+'use client'
 import { getZeroDevSigner, getSocialWalletOwner } from '@zerodevapp/sdk'
 
 import { 
