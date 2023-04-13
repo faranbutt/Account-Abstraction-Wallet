@@ -20,7 +20,7 @@ export default function Home() {
           </div>
           <div className=" col-span-12 lg:col-span-6 relative md:mt-0 mt-16">
             <div className="w-full">
-              <img src="/bitcoin.png" alt="" className="-mt-4 w-50 h-50 animate-bounce"/>
+              <img src="/bitcoin.png" alt="" className="-mt-4 w-20 h-20 animate-bounce"/>
             </div>
             <div>
             <h1 className="flex font-semibold text-emerald-500">
