@@ -1,10 +1,9 @@
-import RpcProviderExample from "./components/rainbow"
-import EtherExample from "./components/ether"
+import RainbowKitExample from "./components/rainbow"
+import Image from "next/image"
 export default function Home() {
   return (
     <div>
-      <RpcProviderExample />
-      <EtherExample />
+      <RainbowKitExample />
     </div>
   )
 }

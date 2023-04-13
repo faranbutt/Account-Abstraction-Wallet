@@ -1,57 +1,51 @@
 'use client'
-import { getZeroDevSigner, getSocialWalletOwner } from '@zerodevapp/sdk'
-
+import '@rainbow-me/rainbowkit/styles.css';
 import { 
-  SocialWallet, 
-  GoogleSocialWallet, 
-  FacebookSocialWallet,
-  GithubSocialWallet,
-  DiscordSocialWallet,
-  TwitchSocialWallet,
-  TwitterSocialWallet
-} from '@zerodevapp/social-wallet';
-import { useState } from 'react';
-import { useMemo } from 'react';
-const socialWallet = new GoogleSocialWallet()
-function RpcProviderExample() {
-    const [address, setAddress] = useState('')
-    const [loading, setLoading] = useState(false)
-  
-    const socialWallet = useMemo(() => {
-      return new SocialWallet()
-    }, [])
-    
-    const createWallet = async () => {
-      setLoading(true)
-      const signer = await getZeroDevSigner({
-        projectId: '7c128cf6-b7da-4177-981a-9ed9954f493a',
-        owner: await getSocialWalletOwner('7c128cf6-b7da-4177-981a-9ed9954f493a', socialWallet)
-      })
-      setAddress(await signer.getAddress())
-      setLoading(false)
-    }
-  
-    const disconnect = async () => {
-      await socialWallet.disconnect()
-      setAddress('')
-    }
-  
-    const connected = !!address
-  
-    return (
-      <div>
-        {connected && 
-          <div>
-            <label>Wallet: {address}</label>
-          </div>
-        }
-        <div>
-          {!connected && <button onClick={createWallet} disabled={loading}>{ loading ? 'loading...' : 'Create Wallet'}</button>}
-          {connected && 
-            <button onClick={disconnect} disabled={loading}>Disconnect</button>
-          }
-        </div>
-      </div>
-    )
-  }
-export default RpcProviderExample;
+  googleWallet,
+  facebookWallet,
+  githubWallet,
+  discordWallet,
+  twitchWallet,
+  twitterWallet,
+} from '@zerodevapp/wagmi/rainbowkit'
+import { RainbowKitProvider, connectorsForWallets } from '@rainbow-me/rainbowkit'
+import { createClient } from 'wagmi'
+import { WagmiConfig } from 'wagmi'
+import { configureChains } from 'wagmi'
+import { polygonMumbai } from 'wagmi/chains'
+import { publicProvider } from 'wagmi/providers/public'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+export default function RainbowKitExample() {
+  const connectors = connectorsForWallets([
+    {
+      groupName: 'Social',
+      wallets: [
+        googleWallet({options: { projectId: '7c128cf6-b7da-4177-981a-9ed9954f493a' }}),
+        facebookWallet({options: { projectId: '7c128cf6-b7da-4177-981a-9ed9954f493a' }}),
+        githubWallet({options: { projectId: '7c128cf6-b7da-4177-981a-9ed9954f493a' }}),
+        discordWallet({options: { projectId: '7c128cf6-b7da-4177-981a-9ed9954f493a' }}),
+        twitchWallet({options: { projectId: '7c128cf6-b7da-4177-981a-9ed9954f493a' }}),
+        twitterWallet({options: { projectId: '7c128cf6-b7da-4177-981a-9ed9954f493a' }})
+      ],
+    },
+  ]);
+
+  const { chains, provider, webSocketProvider } = configureChains(
+    [polygonMumbai],
+    [publicProvider()],
+  )
+  const client = createClient({
+    autoConnect: false,
+    connectors,
+    provider,
+    webSocketProvider,
+  })
+
+  return (
+    <WagmiConfig client={client}>
+        <RainbowKitProvider chains={chains} modalSize={'compact'}>
+            <ConnectButton />
+        </RainbowKitProvider>
+    </WagmiConfig>
+  )
+}
