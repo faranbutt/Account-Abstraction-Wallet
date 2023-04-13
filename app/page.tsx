@@ -23,8 +23,8 @@ export default function Home() {
               <img src="/bitcoin.png" alt="" className="-mt-4 w-100 h-100 animate-bounce"/>
             </div>
             <div>
-            <h1 className="flex font-semibold text-purple-600">
-              Hello <span className="animate-waving-hand">👋🏻</span>Faran Here
+            <h1 className="flex font-semibold text-emerald-500">
+              Hello <span className="animate-[wave_5s_ease-in-out_2]">👋🏻</span>, Faran Here
             </h1>
             </div>
           </div>
