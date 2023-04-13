@@ -19,11 +19,6 @@ export default function Home() {
               <RainbowKitExample />
             </div>
           </div>
-          <div className=" col-span-12 lg:col-span-6 relative md:mt-0 mt-16">
-            <div className="w-full">
-              <img src="/bitcoin.png" alt="" className="-mt-4 w-28 h-28 animate-[bounce_1s_ease-in-out_infinite]"/>
-            </div>
-          </div>
         </div>
       </section>
     </section>
